@@ -1,0 +1,86 @@
+﻿using AdminPageProject.Data;
+using AdminPageProject.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
+namespace AdminPageProject.Controllers
+{
+    public class UploadController : Controller
+    {
+        private readonly AppDbContext _context;
+
+        public UploadController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: UploadPage
+        [HttpGet]
+        public async Task<IActionResult>
+    UploadPage(int attendenceid)
+    {
+    ViewBag.message = attendenceid;
+    return View("~/Views/Engineers/UploadPage.cshtml");
+    }
+
+    // POST: UploadPage
+    [HttpPost]
+    public async Task<IActionResult>
+        UploadPage(int id, IFormFile report, string image, double latitude, double longitude)
+        {
+        var record = await _context.AttendencePage.FirstOrDefaultAsync(a => a.Id == id);
+
+        if (record == null)
+        {
+        // Set toast message for record not found
+        ViewBag.ToastMessage = "Record not found.";
+        ViewBag.ToastType = "danger"; // Correct toast background
+        ViewBag.message = id;
+        return View("~/Views/Engineers/UploadPage.cshtml");
+        }
+
+        // Process file report (if provided)
+        if (report != null && record.Report == null)
+        {
+        byte[] fileData;
+        using (var memoryStream = new MemoryStream())
+        {
+        await report.CopyToAsync(memoryStream);
+        fileData = memoryStream.ToArray();  // Convert the file to VARBINARY equivalent
+        }
+        record.Report = fileData;
+        ViewBag.ToastMessage = "Report uploaded successfully.";
+        ViewBag.ToastType = "success";
+        }
+        else if (report == null)
+        {
+        ViewBag.ToastMessage = "No file uploaded.";
+        ViewBag.ToastType = "warning";
+        }
+
+        // Process image data
+        if (record.ImageColumn == null)
+        {
+        record.ImageColumn = Convert.FromBase64String(image); // Assuming the image is passed as a base64-encoded string
+        record.Latitude = latitude;
+        record.Longitude = longitude;
+        await _context.SaveChangesAsync();
+
+        ViewBag.ToastMessage = "Image updated successfully.";
+        ViewBag.ToastType = "success";
+        }
+        else
+        {
+        ViewBag.ToastMessage = "Image has already been uploaded.";
+        ViewBag.ToastType = "warning";
+        }
+
+        ViewBag.message = id;
+        await _context.SaveChangesAsync();
+        return View("~/Views/Engineers/UploadPage.cshtml");
+        }
+        }
+        }
