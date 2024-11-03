@@ -15,14 +15,15 @@
     <style>
         /* Custom styling for better aesthetics */
         body {
-            background-color: #EDE7F6;
+            background-color: #F0F8FF;
         }
 
         .attendance-table {
-            background-color: white;
             border-radius: 8px;
             padding: 20px;
-            background-color: #e5d0ff;
+            background-color: #BFD7ED;
+            width:130%;
+            margin-left:-15%;
         }
 
         th, td {
@@ -39,15 +40,19 @@
         .table-body{
             background-color:white;
         }
+        .back{
+            margin:10px 0 0 10px;
+        }
     </style>
 </head>
 <body>
+    <a href="@Url.Action("ATEngineersPage","Admin")" class="btn btn-primary mb-2 mr-2 back">Back</a>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <a href="@Url.Action("ATEngineersPage","Admin")" class="btn btn-primary mb-2 mr-2">Back</a>
+                
                 <div class="attendance-table p-4 shadow">
-                    <h3 class="text-center text-uppercase mb-4" style="color: #6C3483;">Records</h3>
+                    <h3 class="text-center text-uppercase mb-4" style="color: #0074b7;">Records</h3>
                     <div class="table-responsive " style="text-align:center">
                         <table class="table table-bordered table-hover">
                             <thead class="table-light">

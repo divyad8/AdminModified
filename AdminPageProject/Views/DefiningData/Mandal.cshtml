@@ -13,9 +13,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
 <body>
+    <a href="@Url.Action("DefiningPage", "Admin")" class="btn btn-primary back">Back</a>
     <div class="container">
-        <a href="@Url.Action("DefiningPage", "Admin")" class="back-arrow">← Back to Define page</a>
-
         <div class="manage-mandal-container">
             <h2>@ViewData["Title"]</h2>
 
@@ -66,7 +65,7 @@
             </div>
 
             <footer class="text-center mt-5">
-                <p>&copy; @DateTime.Now.Year - AdminPageProject</p>
+               
             </footer>
         </div>
     </div>
@@ -77,8 +76,11 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            max-width: 700px;
             margin: auto;
+        }
+        .back{
+            margin:10px 0 0 10px;
         }
 
         h2 {

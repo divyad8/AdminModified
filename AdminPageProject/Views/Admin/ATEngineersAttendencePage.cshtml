@@ -14,14 +14,15 @@
     <style>
     /* Custom styling for better aesthetics */
     body {
-    background-color: #EDE7F6;
+    background-color: #ffffff;
     }
 
     .attendance-table {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
-    background-color: #e5d0ff;
+    background-color: #BFD7ED;
+    width:100%;
     }
 
     th, td {
@@ -67,16 +68,21 @@
     color: #ffffff;
     cursor: pointer;
     }
+    .back{
+        margin-left:10px;
+        margin-top:10px;
+    }
     </style>
 </head>
 <body>
+    <a href="@Url.Action("AdminPage","Admin")" class="btn btn-primary mb-2 mr-2 back">Back</a>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <a href="@Url.Action("AdminPage","Admin")" class="btn btn-primary mb-2 mr-2">Back</a>
+                
 
                 <div class="attendance-table p-4 shadow">
-                    <h3 class="text-center text-uppercase mb-4" style="color: #6C3483;">AT Engineers Attendance</h3>
+                    <h3 class="text-center text-uppercase mb-4" style="color:darkblue;">AT Engineers Attendance</h3>
                     <div class="table-responsive" style="text-align:center">
                         <table class="table table-bordered table-hover">
                             <thead class="table-light">
@@ -122,7 +128,7 @@
                             </tbody>
                         </table>
 
-                        <a style="background-color:#793ccf; color:white" href="@Url.Action("AttendencePage", "AttendencePage")" class="btn btn-custom">Show Alloted Work</a>
+                        <a style="background-color:#0d6efd; color:white" href="@Url.Action("AttendencePage", "AttendencePage")" class="btn btn-custom">Show Alloted Work</a>
                     </div>
                 </div>
             </div>

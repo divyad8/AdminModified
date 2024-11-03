@@ -11,207 +11,260 @@
     <title>AT Engineers Attendance</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        /* Custom styling */
-        body { background-color: #e5d0ff; }
-        .attendance-table { display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 8px; padding: 20px; background-color: #d5b3ff; }
-        th, td { text-align: center; vertical-align: middle; }
-        .table-body { background-color: white; }
-        .form-select, .input-field { width: 80%; display: inline-block; }
-        .select-container { text-align: end; vertical-align: middle; }
-        .table-responsive { width: 100%; border-radius: 10px; }
-        .allot-btn { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; }
-        .allot-btn:hover { background-color: #45a049; }
+        body {
+            background-color: #F0F8FF; /* Light background color for the page */
+            font-family: Arial, sans-serif; /* Font for the body */
+        }
+
+        .attendance-container {
+            background-color: #FFFFFF; /* White background for the outer container */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            max-width: 500px; /* Set container width */
+            margin: auto; /* Centering the container */
+        }
+
+        .form-container {
+            background-color: #E7F3FF; /* Soft blue color for the form itself */
+            padding: 20px; /* Padding inside the form */
+            border-radius: 8px; /* Rounded corners for the form */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        .form-select, .input-field, .input-file {
+            width: 65%; /* Width for inputs */
+            color: #333; /* Input text color */
+            border: 1px solid #0074B7; /* Border color */
+            border-radius: 8px; /* Rounded corners */
+            padding: 10px; /* Padding for inputs */
+            margin-top: 5px; /* Space above each field */
+            transition: border-color 0.3s; /* Smooth transition for border color */
+        }
+
+            .form-select:focus, .input-field:focus {
+                outline: none; /* Remove focus outline */
+                border-color: #003B73; /* Border color on focus */
+                box-shadow: 0 0 5px rgba(0, 56, 112, 0.5); /* Shadow effect on focus */
+            }
+
+
+        .label {
+            width: 35%; /* Width for label names */
+            text-align: left; /* Left-align label text */
+            margin-right: 15px; /* Space between label and input */
+            color: #003B73; /* Color for label text */
+            font-weight: bold; /* Bold label text */
+            transition: color 0.3s; /* Smooth transition for hover */
+        }
+
+        .select-container {
+            display: flex; /* Align label and select side by side */
+            align-items: center; /* Center items vertically */
+            margin-bottom: 15px; /* Space below each field */
+            position: relative; /* Required for the pseudo-element */
+        }
+
+            /* Only add horizontal line to select containers that are not the last child */
+            .select-container:not(:last-child)::after {
+                content: '';
+                display: block;
+                height: 2px;
+                background-color: #ffffff; /* Color of the horizontal line */
+                margin: 10px 0; /* Space above and below the line */
+                width: 110%; /* Full width of the container */
+                position: absolute;
+                left: 0;
+                bottom: -20px;
+                left: -20px;/* Position it slightly below the label */
+            }
+
+            .select-container:hover .label {
+                color: #00A3E0; /* Brighter blue for better visibility */
+                font-weight: bold; /* Keep it bold on hover */
+            }
+
+            .select-container:hover .form-select,
+            .select-container:hover .input-field,
+            .select-container:hover .input-file {
+                border-color: #0074B7; /* Change border color for inputs on label hover */
+                box-shadow: 0 0 5px rgba(0, 116, 183, 0.5); /* Add shadow effect to inputs on label hover */
+            }
+
+        .allot-btn {
+            background-color: #0074B7; /* Button color */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px; /* Space above the button */
+            display: block; /* Center button */
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.3s; /* Smooth transition for hover */
+        }
+
+            .allot-btn:hover {
+                background-color: #003B73; /* Darker on hover */
+            }
+
+        .back-btn {
+            background-color: #60A3D9; /* Color for the back button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0; /* Space above the back button */
+            display: inline-block; /* Align with other buttons */
+            transition: background-color 0.3s; 
+            margin-left:10px; /* Smooth transition for hover */
+        }
+
+            .back-btn:hover {
+                background-color: #0074B7; /* Darker on hover */
+                color:white;
+            }
+
+        footer {
+            margin-top: 20px; /* Space above the footer */
+            padding: 10px; /* Padding for the footer */
+            text-align: center; /* Center footer text */
+            background-color: #F0F8FF; /* Light background color for footer */
+        }
     </style>
+
+
 </head>
 <body>
+    <a href="@Url.Action("AdminPage","Admin")" class="btn back-btn mb-3">Back</a>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <a href="@Url.Action("AdminPage","Admin")" class="btn btn-primary mb-2 mr-2">Back</a>
-                <form method="post" action="@Url.Action("AllotWork", "Allotwork")" enctype="multipart/form-data">
-                    <div class="attendance-table p-4 shadow">
-                        <h3 class="text-center text-uppercase mb-4">AllotWork Page</h3>
-                        <div class="table-responsive">
-                            <table style="margin:0px;" class="table  table-hover">
-                                <tbody class="table-body">
-                                <!-- Example Row (You can loop through your data here using Razor) -->
-                                <tr>
-                                    <td style="width:10px; text-align:start; padding-left:30px;"><label for="section" class="col-sm-4 col-form-label">Section</label></td>
-                                    <td style="width:150px;" class="select-container">
-                                        <select name="section" class="form-select" id="section" required>
-                                            <option value="">Select</option>
-                                            @if (Model.Sections != null && Model.Sections.Any())
-                                            {
-                                                foreach (var sec in Model.Sections)
-                                                {
-                                                    <option>@sec.Name</option>
-                                                }
-                                            }
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:10px; text-align:start; padding-left:30px;"><label for="department" class="col-sm-4 col-form-label">Department</label></td>
-                                    <td style="width:10px;" class="select-container">
-                                        <select name="department" class="form-select" id="department" required>
-                                            <option value="">Select</option>
-                                            @if (Model.Departments != null && Model.Departments.Any())
-                                            {
-                                                foreach (var sec in Model.Departments)
-                                                {
-                                                    <option>@sec.Name</option>
-                                                }
-                                            }
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:10px; text-align:start; padding-left:30px;"><label for="district" class="col-sm-4 col-form-label">District</label></td>
-                                    <td style="width:10px;" class="select-container">
-                                        <select name="district" class="form-select" id="district" required>
-                                            <option value="">Select</option>
-                                            @if (Model.District != null && Model.District.Any())
-                                            {
-                                                foreach (var sec in Model.District)
-                                                {
-                                                    <option>@sec.Name</option>
-                                                }
-                                            }
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:10px; text-align:start; padding-left:30px;"><label for="mandal" class="col-sm-4 col-form-label">Mandal</label></td>
-                                    <td style="width:10px;" class="select-container">
-                                        <select name="mandal" class="form-select" id="mandal" required>
-                                            <option value="">Select</option>
-                                            @if (Model.Mandal != null && Model.Mandal.Any())
-                                            {
-                                                foreach (var sec in Model.Mandal)
-                                                {
-                                                    <option>@sec.Name</option>
-                                                }
-                                            }
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:10px; text-align:start; padding-left:30px;"><label for="village" class="col-sm-4 col-form-label">Village</label></td>
-                                    <td style="width:10px;" class="select-container">
-                                        <select name="village" class="form-select" id="village" required>
-                                            <option value="">Select</option>
-                                            @if (Model.Village != null && Model.Village.Any())
-                                            {
-                                                foreach (var sec in Model.Village)
-                                                {
-                                                    <option>@sec.Name</option>
-                                                }
-                                            }
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:10px; text-align:start; padding-left:30px;"><label for="atEngineerId" class="col-sm-4 col-form-label">ATEngineers</label></td>
-                                    <td style="width:10px;" class="select-container">
-                                        <select name="atEngineerId" class="form-select" id="atEngineerId" required>
-                                            <option value="">Select</option>
-                                            @if (Model.ATEngineer != null && Model.ATEngineer.Any())
-                                            {
-                                                foreach (var sec in Model.ATEngineer)
-                                                {
-                                                    <option value="@sec.Id">@sec.Id - @sec.Name</option>
-                                                }
-                                            }
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:10px; text-align:start; padding-left:30px;"><label for="location" class="col-sm-4 col-form-label">Locations</label></td>
-                                    <td style="width:10px;" class="select-container">
-                                        <select name="location" class="form-select" id="location" required>
-                                            <option value="">Select</option>
-                                            @if (Model.Location != null && Model.Location.Any())
-                                            {
-                                                foreach (var sec in Model.Location)
-                                                {
-                                                    <option>@sec.Name</option>
-                                                }
-                                            }
-                                        </select
-                                    </td>
-                                </tr>
+                
+                <div class="attendance-container p-4">
+                    <h3 class="text-center text-uppercase mb-4">AllotWork Page</h3>
+                    <form method="post" action="@Url.Action("AllotWork", "Allotwork")" enctype="multipart/form-data">
+                        <div class="form-container">
+                            <div class="select-container">
+                                <label for="section" class="label">Section</label>
+                                <select name="section" class="form-select" id="section" required>
+                                    <option value="">Select</option>
+                                    @if (Model.Sections != null && Model.Sections.Any())
+                                    {
+                                        foreach (var sec in Model.Sections)
+                                        {
+                                            <option>@sec.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="select-container">
+                                <label for="department" class="label">Department</label>
+                                <select name="department" class="form-select" id="department" required>
+                                    <option value="">Select</option>
+                                    @if (Model.Departments != null && Model.Departments.Any())
+                                    {
+                                        foreach (var sec in Model.Departments)
+                                        {
+                                            <option>@sec.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="select-container">
+                                <label for="district" class="label">District</label>
+                                <select name="district" class="form-select" id="district" required>
+                                    <option value="">Select</option>
+                                    @if (Model.District != null && Model.District.Any())
+                                    {
+                                        foreach (var sec in Model.District)
+                                        {
+                                            <option>@sec.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="select-container">
+                                <label for="mandal" class="label">Mandal</label>
+                                <select name="mandal" class="form-select" id="mandal" required>
+                                    <option value="">Select</option>
+                                    @if (Model.Mandal != null && Model.Mandal.Any())
+                                    {
+                                        foreach (var sec in Model.Mandal)
+                                        {
+                                            <option>@sec.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="select-container">
+                                <label for="village" class="label">Village</label>
+                                <select name="village" class="form-select" id="village" required>
+                                    <option value="">Select</option>
+                                    @if (Model.Village != null && Model.Village.Any())
+                                    {
+                                        foreach (var sec in Model.Village)
+                                        {
+                                            <option>@sec.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="select-container">
+                                <label for="atEngineerId" class="label">ATEngineers</label>
+                                <select name="atEngineerId" class="form-select" id="atEngineerId" required>
+                                    <option value="">Select</option>
+                                    @if (Model.ATEngineer != null && Model.ATEngineer.Any())
+                                    {
+                                        foreach (var sec in Model.ATEngineer)
+                                        {
+                                            <option value="@sec.Id">@sec.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <!-- Postal Fields Below -->
+                            <div class="select-container">
+                                <label for="postalNo" class="label">Postal No</label>
+                                <input type="text" id="postalNo" name="postalNo" class="input-field" placeholder="Enter Postal No" required />
+                            </div>
+                            <div class="select-container">
+                                <label for="postalCode" class="label">Postal Code</label>
+                                <input type="text" id="postalCode" name="postalCode" class="input-field" placeholder="Enter Postal Code" required />
+                            </div>
+                            <div class="select-container">
+                                <label for="postalCopy" class="label">Postal Copy</label>
+                                <input type="file" id="postalCopy" name="postalCopy" class="input-file" required />
+                            </div>
+                            <div class="select-container">
+                                <label for="postalDate" class="label">Postal Date</label>
+                                <input type="date" id="postalDate" name="postalDate" class="input-field" required />
+                            </div>
+                            <div class="select-container">
+                                <label for="financialYear" class="label">Financial Year</label>
+                                <input type="text" id="financialYear" name="financialYear" class="input-field" required />
+                            </div>
+                            <div class="select-container">
+                                <label for="allottedDate" class="label">Allotted Date</label>
+                                <input type="date" id="allottedDate" name="allottedDate" class="input-field" required />
+                            </div>
                            
-                                    <!-- Financial Year Field -->
-                                    <tr>
-                                        <td><label for="FinYear" class="col-form-label">Financial Year</label></td>
-                                        <td class="select-container">
-                                            <input type="text" id="FinYear" class="form-select bg-light-blue input-field" style="border-width:0px;" readonly />
-                                        </td>
-                                    </tr>
-
-                                    <!-- Postal No Field -->
-                                    <tr>
-                                        <td><label for="postalNo" class="col-form-label">Postal No</label></td>
-                                        <td class="select-container">
-                                            <input type="text" name="postalNo" class="form-select bg-light-blue input-field" />
-                                        </td>
-                                    </tr>
-                                     <tr>
-                                         <td><label for="postalCode" class="col-form-label">Postal code</label></td>
-                                        <td class="select-container">
-                                            <input type="input" name="postalCode" class="form-select bg-light-blue input-field" />
-                                        </td>
-                                    </tr>
-                                    <!-- Postal Date Field -->
-                                    <tr>
-                                        <td><label for="postalDate" class="col-form-label">Postal Date</label></td>
-                                        <td class="select-container">
-                                            <input type="date" name="postalDate" class="form-select bg-light-blue input-field" />
-                                        </td>
-                                    </tr>
-                                   
-                                    <!-- Postal Copy Field -->
-                                    <tr>
-                                        <td><label for="postalCopy" class="col-form-label">Postal Copy</label></td>
-                                        <td class="select-container">
-                                            <input type="file" name="postalCopy" id="postalCopy" class="form-select bg-light-blue input-field" />
-                                        </td>
-                                    </tr>
-
-                                    <!-- Alloted Date Field (autofill current date) -->
-                                    <tr>
-                                        <td><label for="AllotedDate" class="col-form-label">Alloted Date</label></td>
-                                        <td class="select-container">
-                                            <input type="date" id="AllotedDate" class="form-select bg-light-blue input-field" readonly />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
-                        <div class="text-center">
-                            <button type="submit" class="allot-btn">Allot</button>
-                        </div>
-                    </div>
-                </form>
-                @if (ViewBag.AlertMessage != null)
-                {
-                    <div>@ViewBag.AlertMessage</div>
-                }
+                    </form>
+                    <button type="submit" class="allot-btn">Submit</button>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <footer>
+        
+    </footer>
     <script>
-        let date = new Date();
-        let year = date.getFullYear();
-        document.getElementById("FinYear").value = year + " - " + (year + 1);
-
-        let mm = String(date.getMonth() + 1).padStart(2, '0');
-        let dd = String(date.getDate()).padStart(2, '0');
-        let formattedDate = year + '-' + mm + '-' + dd;
-        document.getElementById('AllotedDate').value = formattedDate;
+        // JavaScript for Date Handling
+        document.addEventListener('DOMContentLoaded', function () {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('postalDate').setAttribute('min', today);
+        });
     </script>
 </body>
 </html>

@@ -12,96 +12,100 @@
     <!-- Add Bootstrap for styling and Font Awesome for icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
     <style>
+        /* Background color */
         body {
-            background-color: #1f1f2e; /* Dark professional background */
-            color: #ffffff;
+            background-color: #BFD7ED;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        .atengineer-page {
+        /* Centered container */
+        .main-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 500px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
             text-align: center;
-            margin-top: 50px;
+            margin: auto;
         }
 
+        /* Header */
         h1 {
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-bottom: 45px;
+            color: #003B73;
+            font-size: 26px;
+            margin-bottom: 30px;
         }
 
-        .card-custom {
-            background-color: #29294a; /* Card background color */
+        /* Button styling */
+        .btn-custom {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #60A3D9;
             color: #ffffff;
             border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            margin: 15px 0;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 220px;
-            text-align: center;
-            padding: 20px;
-            margin: 20px;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
         }
 
-        .card-custom:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        }
+            .btn-custom:hover {
+                background-color: #0074B7;
+                color: #ffffff;
+                transform: translateY(-3px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
 
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #5a5aff; /* Icon color */
-        }
+            /* Icon styling with spacing */
+            .btn-custom i {
+                margin-right: 10px;
+                font-size: 20px;
+            }
 
-        /* Back button styling */
-        .btn-back {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            color: #ffffff;
-            border-color: #ffffff;
-            font-size: 1rem;
-        }
+
 
         /* Responsive adjustments */
         @@media (max-width: 500px) {
-            .card-deck {
-                flex-direction: column;
-                align-items: center;
+            .main-container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 22px;
             }
         }
     </style>
+
 </head>
 <body>
 
-<div class="atengineer-page">
-    <a href="@Url.Action("Index", "Login")" class="btn btn-outline-light btn-back"><i class="fas fa-arrow-left"></i> Back</a>
-    
-    <!-- Heading -->
-    <h1>ATEngineer Page</h1>
+    <div class="main-container">
+       
 
-    <!-- Card container with cards as buttons -->
-    <div class="d-flex justify-content-center flex-wrap">
-        <!-- Card for Show Work -->
-        <a href="@Url.Action("ShowWork", "Admin")" class="card card-custom text-decoration-none">
-            <div class="card-body">
-                <i class="fas fa-clipboard-list card-icon"></i>
-                <h5 class="card-title">Show Work</h5>
-            </div>
+        <!-- Heading -->
+        <h1>ATEngineer Page</h1>
+
+        <!-- Buttons as navigation options -->
+        <a href="@Url.Action("ShowWork", "Admin")" class="btn btn-custom">
+            <i class="fas fa-clipboard-list"></i> Show Work
         </a>
-
-        <!-- Card for Records -->
-        <a href="@Url.Action("Records", "Admin")" class="card card-custom text-decoration-none">
-            <div class="card-body">
-                <i class="fas fa-file-alt card-icon"></i>
-                <h5 class="card-title">Records</h5>
-            </div>
+        <a href="@Url.Action("Records", "Admin")" class="btn btn-custom">
+            <i class="fas fa-file-alt"></i> Records
         </a>
     </div>
-</div>
 
-<!-- Bootstrap and Font Awesome JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap and Font Awesome JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
